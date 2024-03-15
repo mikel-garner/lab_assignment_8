@@ -34,23 +34,23 @@ size_t Size(void* ptr)
 void mergeSort(int pData[], int l, int r)
 {
     if (l < r) {
-        int m = l + (r - l) / 2;
+        int middle = l + (r - l) / 2;
 
-        mergeSort(pData, l, m);
-        mergeSort(pData, m + 1, r);
+        mergeSort(pData, l, middle);
+        mergeSort(pData, middle + 1, r);
 
         // Allocate memory for temporary arrays L[] and R[]
-        int* L = (int*)Alloc((m - l + 1) * sizeof(int));
-        int* R = (int*)Alloc((r - m) * sizeof(int));
+        int* L = (int*)Alloc((middle - l + 1) * sizeof(int));
+        int* R = (int*)Alloc((r - middle) * sizeof(int));
 
         // Copy data to temporary arrays L[] and R[]
-        memcpy(L, &pData[l], (m - l + 1) * sizeof(int));
-        memcpy(R, &pData[m + 1], (r - m) * sizeof(int));
+        memcpy(L, &pData[l], (middle - l + 1) * sizeof(int));
+        memcpy(R, &pData[m + 1], (r - middle) * sizeof(int));
 
         int i = 0, j = 0, k = l;
 
         // Merge the temporary arrays back into pData[l..r]
-        while (i < (m - l + 1) && j < (r - m)) {
+        while (i < (middle - l + 1) && j < (r - middle)) {
             if (L[i] <= R[j]) {
                 pData[k++] = L[i++];
             } else {
@@ -59,12 +59,12 @@ void mergeSort(int pData[], int l, int r)
         }
 
         // Copy the remaining elements of L[], if any
-        while (i < (m - l + 1)) {
+        while (i < (middle - l + 1)) {
             pData[k++] = L[i++];
         }
 
         // Copy the remaining elements of R[], if any
-        while (j < (r - m)) {
+        while (j < (r - middle)) {
             pData[k++] = R[j++];
         }
 
